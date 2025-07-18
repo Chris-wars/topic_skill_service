@@ -30,9 +30,10 @@ def get_topic_by_id(id):
     
     topics = data_manager.read_data(TOPICS_FILE) # Ruft die Themen aus der JSON-Datei ab
     topic = next((topic for topic in topics if topic.get('id').lower() == id.lower()), None) # Sucht das Thema mit der angegebenen ID in der Liste der Themen
-    
-    return jsonify(topic) # Konvertiert das gefundene Thema in eine JSON-Antwort und gibt es zurück, falls vorhanden
-    
+    if topic:
+        return jsonify(topic) # Konvertiert das gefundene Thema in eine JSON-Antwort und gibt es zurück, falls vorhanden
+    else:
+        return jsonify({"[ERROR]": "Topic ID Not found"}), 404
 
 
 @app.route('/skills', methods=['GET']) # Definiert eine Route für '/skills', die nur GET-Anfragen akzeptiert
@@ -47,7 +48,10 @@ def get_skill_by_id(id): # Ruft eine einzelne Fähigkeit anhand ihrer ID aus der
 
     skills = data_manager.read_data(SKILLS_FILE) # Ruft die Fähigkeiten aus der JSON-Datei ab
     skill = next((skill for skill in skills if skill.get('id').lower() == id.lower()), None) # Sucht die Fähigkeit mit der angegebenen ID in der Liste der Fähigkeiten
-    return jsonify(skill) # Konvertiert die gefundene Fähigkeit in eine JSON-Antwort und gibt sie zurück, falls vorhanden
+    if skill:   # Wenn die Fähigkeit gefunden wurde, wird sie als JSON-Antwort zurückgegeben
+        return jsonify(skill) # Konvertiert die gefundene Fähigkeit in eine JSON-Antwort und gibt sie zurück
+    else:# Wenn die Fähigkeit nicht gefunden wurde, wird eine Fehlermeldung zurückgegeben
+        return jsonify({"[ERROR]": "Skill ID Not found"}), 404 # Gibt eine Fehlermeldung zurück, wenn die Fähigkeit nicht gefunden wurde, mit Statuscode 404 (Nicht gefunden)
 
 
 if __name__ == '__main__':
