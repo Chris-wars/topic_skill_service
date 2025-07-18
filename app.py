@@ -19,8 +19,7 @@ def hello_world():
 
 @app.route('/topics', methods=['GET']) # Definiert eine Route für '/topics', die nur GET-Anfragen akzeptiert
 def get_topics():
-    """    Ruft die Themen aus der JSON-Datei ab und gibt sie als JSON-Antwort zurück
-    """
+
     topics = data_manager.read_data(TOPICS_FILE) # Ruft die Themen aus der JSON-Datei ab
     return jsonify(topics) # Konvertiert die Themenliste in eine JSON-Antwort und gibt sie zurück
 
