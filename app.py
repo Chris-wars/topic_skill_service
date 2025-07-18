@@ -44,6 +44,13 @@ def get_skills():
     return jsonify(skills) # Konvertiert die Fähigkeitenliste in eine JSON-Antwort und gibt sie zurück
 
 
+@app.route('/skills/<id>', methods=['GET'])
+def get_skill_by_id(id):
+    skills = data_manager.read_data(SKILLS_FILE)
+    skill = next((skill for skill in skills if skill.get('id').lower() == id.lower()), None)
+    return jsonify(skill)
+
+
 if __name__ == '__main__':
     # Dieser Block wird nur ausgeführt, wenn das Skript direkt gestartet wird (nicht importiert)
     app.run(debug=True, port=5000) # Startet den Flask-Entwicklungsserver
