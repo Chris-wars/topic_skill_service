@@ -2,6 +2,7 @@ import os # Importiert das OS-Modul für die Interaktion mit dem Betriebssystem,
 from flask import Flask, jsonify # Importiert Flask-Klasse zum Erstellen der Webanwendung und jsonify zum Konvertieren von Python-Objekten in JSON-Antworten
 from data_manager import JsonDataManager# Importiert das data_manager-Modul, das die JsonDataManager-Klasse enthält
 
+
 app = Flask(__name__) # Initialisiert die Flask-Anwendung. __name__ hilft Flask, den Stammordner für die App zu finden.
 data_manager = JsonDataManager() # Erstellt eine Instanz der JsonDataManager-Klasse, um JSON-Daten zu verwalten
 
