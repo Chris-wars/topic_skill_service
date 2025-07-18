@@ -27,8 +27,7 @@ def get_topics():
 
 @app.route('/topics/<id>', methods=['GET']) # Definiert eine Route für '/topics/<id>', die GET-Anfragen akzeptiert, wobei <id> ein Platzhalter für die Themen-ID ist
 def get_topic_by_id(id):
-    """    Ruft ein einzelnes Thema anhand seiner ID aus der JSON-Datei ab und gibt es als JSON-Antwort zurück
-    """
+    
     topics = data_manager.read_data(TOPICS_FILE) # Ruft die Themen aus der JSON-Datei ab
     topic = next((topic for topic in topics if topic.get('id').lower() == id.lower()), None) # Sucht das Thema mit der angegebenen ID in der Liste der Themen
     
@@ -38,17 +37,17 @@ def get_topic_by_id(id):
 
 @app.route('/skills', methods=['GET']) # Definiert eine Route für '/skills', die nur GET-Anfragen akzeptiert
 def get_skills():
-    """    Ruft die Fähigkeiten aus der JSON-Datei ab und gibt sie als JSON-Antwort zurück
-    """
+
     skills = data_manager.read_data(SKILLS_FILE) # Ruft die Fähigkeiten aus der JSON-Datei ab
     return jsonify(skills) # Konvertiert die Fähigkeitenliste in eine JSON-Antwort und gibt sie zurück
 
 
-@app.route('/skills/<id>', methods=['GET'])
-def get_skill_by_id(id):
-    skills = data_manager.read_data(SKILLS_FILE)
-    skill = next((skill for skill in skills if skill.get('id').lower() == id.lower()), None)
-    return jsonify(skill)
+@app.route('/skills/<id>', methods=['GET']) # Definiert eine Route für '/skills/<id>', die GET-Anfragen akzeptiert, wobei <id> ein Platzhalter für die Fähigkeits-ID ist
+def get_skill_by_id(id): # Ruft eine einzelne Fähigkeit anhand ihrer ID aus der JSON-Datei ab und gibt sie als JSON-Antwort zurück
+
+    skills = data_manager.read_data(SKILLS_FILE) # Ruft die Fähigkeiten aus der JSON-Datei ab
+    skill = next((skill for skill in skills if skill.get('id').lower() == id.lower()), None) # Sucht die Fähigkeit mit der angegebenen ID in der Liste der Fähigkeiten
+    return jsonify(skill) # Konvertiert die gefundene Fähigkeit in eine JSON-Antwort und gibt sie zurück, falls vorhanden
 
 
 if __name__ == '__main__':
