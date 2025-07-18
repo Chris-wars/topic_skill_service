@@ -24,6 +24,18 @@ def get_topics():
     topics = data_manager.read_data(TOPICS_FILE) # Ruft die Themen aus der JSON-Datei ab
     return jsonify(topics) # Konvertiert die Themenliste in eine JSON-Antwort und gibt sie zurück
 
+
+@app.route('/topics/<id>', methods=['GET']) # Definiert eine Route für '/topics/<id>', die GET-Anfragen akzeptiert, wobei <id> ein Platzhalter für die Themen-ID ist
+def get_topic_by_id(id):
+    """    Ruft ein einzelnes Thema anhand seiner ID aus der JSON-Datei ab und gibt es als JSON-Antwort zurück
+    """
+    topics = data_manager.read_data(TOPICS_FILE) # Ruft die Themen aus der JSON-Datei ab
+    topic = next((topic for topic in topics if topic.get('id').lower() == id.lower()), None) # Sucht das Thema mit der angegebenen ID in der Liste der Themen
+    
+    return jsonify(topic) # Konvertiert das gefundene Thema in eine JSON-Antwort und gibt es zurück, falls vorhanden
+    
+
+
 @app.route('/skills', methods=['GET']) # Definiert eine Route für '/skills', die nur GET-Anfragen akzeptiert
 def get_skills():
     """    Ruft die Fähigkeiten aus der JSON-Datei ab und gibt sie als JSON-Antwort zurück
