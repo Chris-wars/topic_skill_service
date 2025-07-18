@@ -5,10 +5,10 @@ from data_manager import JsonDataManager# Importiert das data_manager-Modul, das
 app = Flask(__name__) # Initialisiert die Flask-Anwendung. __name__ hilft Flask, den Stammordner für die App zu finden.
 data_manager = JsonDataManager() # Erstellt eine Instanz der JsonDataManager-Klasse, um JSON-Daten zu verwalten
 
-# Definiert den Pfad zum Datenverzeichnis relativ zum aktuellen Skript
-DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
-# Definiert den vollständigen Pfad zur topics.json-Datei im Datenverzeichnis
-TOPICS_FILE = os.path.join(DATA_DIR, 'topics.json')
+
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data') # Definiert den Pfad zum Datenverzeichnis relativ zum aktuellen Dateipfad
+TOPICS_FILE = os.path.join(DATA_DIR, 'topics.json') # Definiert den Pfad zur topics.json-Datei im Datenverzeichnis
+SKILLS_FILE = os.path.join(DATA_DIR, 'skills.json') # Definiert den Pfad zur skills.json-Datei im aktuellen Verzeichnis
 
 
 @app.route('/') # Definiert eine Route für die Startseite ('/')
@@ -19,12 +19,18 @@ def hello_world():
 
 @app.route('/topics', methods=['GET']) # Definiert eine Route für '/topics', die nur GET-Anfragen akzeptiert
 def get_topics():
-    """
-    Endpunkt zum Abrufen aller Themen aus der topics.json-Datei.
-    Gibt eine JSON-Antwort mit der Liste der Themen zurück.
+    """    Ruft die Themen aus der JSON-Datei ab und gibt sie als JSON-Antwort zurück
     """
     topics = data_manager.read_data(TOPICS_FILE) # Ruft die Themen aus der JSON-Datei ab
     return jsonify(topics) # Konvertiert die Themenliste in eine JSON-Antwort und gibt sie zurück
+
+@app.route('/skills', methods=['GET']) # Definiert eine Route für '/skills', die nur GET-Anfragen akzeptiert
+def get_skills():
+    """    Ruft die Fähigkeiten aus der JSON-Datei ab und gibt sie als JSON-Antwort zurück
+    """
+    skills = data_manager.read_data(SKILLS_FILE) # Ruft die Fähigkeiten aus der JSON-Datei ab
+    return jsonify(skills) # Konvertiert die Fähigkeitenliste in eine JSON-Antwort und gibt sie zurück
+
 
 if __name__ == '__main__':
     # Dieser Block wird nur ausgeführt, wenn das Skript direkt gestartet wird (nicht importiert)

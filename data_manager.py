@@ -1,17 +1,17 @@
-import json
-import os
+import json # JSON-Modul zum Arbeiten mit JSON-Daten
+import os # os-Modul zum Arbeiten mit dem Dateisystem
 
-class JsonDataManager:
+class JsonDataManager: # Datenmanager-Klasse für JSON-Dateien
     """
     Verwaltet das Lesen und Schreiben von JSON-Daten aus Dateien.
     """
 
-    def __init__(self):
+    def __init__(self): # Konstruktor der Klasse
         pass
       
         
 
-    def read_data(self, filepath):
+    def read_data(self, filepath): # Liest Daten aus einer JSON-Datei
 
         if not os.path.exists(filepath):
             # Prüft, ob die Datei existiert
@@ -33,14 +33,14 @@ class JsonDataManager:
 
 
 
-    def write_data(self, filepath, data):
+    def write_data(self, filepath, data): # Schreibt Daten in eine JSON-Datei
 
         os.makedirs(os.path.dirname(filepath), exist_ok=True)  # Stellt sicher, dass das Verzeichnis existiert
         
         try:
-            with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
-            return True
-        except Exception as e:
-            print(f"Ein unerwarteter Fehler ist beim Schreiben in '{filepath}' aufgetreten: {e}")
-            return False
+            with open(filepath, 'w', encoding='utf-8') as f: # Öffnet die Datei im Schreibmodus mit UTF-8-Kodierung
+                json.dump(data, f, indent=4, ensure_ascii=False) # Schreibt die Daten im JSON-Format in die Datei
+            return True # Gibt True zurück, wenn das Schreiben erfolgreich war
+        except Exception as e: # Fängt alle anderen unerwarteten Fehler ab
+            print(f"Ein unerwarteter Fehler ist beim Schreiben in '{filepath}' aufgetreten: {e}") # Gibt eine Fehlermeldung aus
+            return False # Gibt False zurück, wenn ein Fehler aufgetreten ist
